@@ -110,18 +110,28 @@ import {Hotkey} from './hotkey.model';
     font-size: 1.2em;
   }
 }  `],
-    template : `<div class="cfp-hotkeys-container fade" [ngClass]="{'in': helpVisible}" style="display:none"><div class="cfp-hotkeys">
-  <h4 class="cfp-hotkeys-title">{{ title }}</h4>
-  <table><tbody>
-    <tr *ngFor="let hotkey of hotkeys">
-      <td class="cfp-hotkeys-keys">
-        <span *ngFor="let key of hotkey.formatted" class="cfp-hotkeys-key">{{ key }}</span>
-      </td>
-      <td class="cfp-hotkeys-text">{{ hotkey.description }}</td>
-    </tr>
-  </tbody></table>
-  <div class="cfp-hotkeys-close" (click)="toggleCheatSheet()">&#215;</div>
-</div></div>`,
+    template : `
+    <div class="cfp-hotkeys-container fade" [ngClass]="{in: helpVisible}" style="display: none;">
+      <div class="cfp-hotkeys" *ngIf="helpVisible">
+        <h4 class="cfp-hotkeys-title" *ngIf="!header">{{ title }}</h4>
+        <div [innerHTML]="header" *ngIf="header"></div>
+        <div class="keyboard-cols">
+          <ng-container *ngFor="let hotkey of hotkeys">
+            <div class="keyboard-row" *ngIf="hotkey.description && hotkey.description !== '' && !hotkey.combo[0].indexOf('@@') > -1">
+              <div class="keyboard-title" *ngIf="hotkey.action">{{hotkey.action}}</div>
+              <div class="cfp-hotkeys-keys" *ngIf="!hotkey.combo[0].indexOf('@@') > -1">
+                <span *ngFor="let key of hotkey.formatted" class="cfp-hotkeys-key">{{ key }}</span>
+              </div>
+              <div class="cfp-hotkeys-text" *ngIf="!hotkey.combo[0].indexOf('@@') > -1">{{ hotkey.description }}</div>
+            </div>
+          </ng-container>
+        </div>
+        <div [innerHTML]="footer" *ngIf="footer"></div>
+        <div class="cfp-hotkeys-close" (click)="toggleCheatSheet()">&#215;</div>
+        <div class="cfp-hotkeys-close-bottom" (click)="toggleCheatSheet()"><i class="fa fa-keyboard-o cr-footer-icon"></i></div>
+      </div>
+    </div>
+    `,
 })
 export class CheatSheetComponent implements OnInit, OnDestroy {
     helpVisible = false;

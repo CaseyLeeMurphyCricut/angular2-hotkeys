@@ -1,5 +1,5 @@
 {
-  "name": "angular2-hotkeys",
+  "name": "@seethelemurcricut/angular2-hotkeys",
   "version": "2.1.2",
   "scripts": {
     "lint": "tslint src/**/*.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:brtnshrdr/angular2-hotkeys.git"
+    "url": "git+https://github.com/CaseyLeeMurphyCricut/angular2-hotkeys"
   },
   "author": {
     "name": "Nick Richardson",
@@ -25,9 +25,6 @@
     "shortcut"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "git@github.com:brtnshrdr/angular2-hotkeys.git/issues"
-  },
   "main": "./index.js",
   "dependencies": {
     "mousetrap": "^1.6.0",
